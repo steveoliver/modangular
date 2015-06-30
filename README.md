@@ -1,5 +1,14 @@
 # Modangular
-An AngularJS seed with a modular file structure.
+This repo is an AngularJS seed with a modular file structure.
+
+The `client` directory is where the source files are. JS, Less, and HTML templates are built
+and copied over to the `public` directory.
+
+The `public` directory is what will be served. Static files like `index.html` and images belong in the `public` directory.
+
+The gulp build process includes linting, code style checking, template compiling, angular annotation, source file concatenation,
+less compilation, css minification, js minification, and js sourcemaps.
+
 
 # Setup
 ```
