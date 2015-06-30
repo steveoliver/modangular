@@ -1,0 +1,7 @@
+*.bak
+*.log
+.idea*
+node_modules*
+public/css*
+public/js*
+public/vendor*
