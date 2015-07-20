@@ -1,3 +1,7 @@
+/**
+ * This authentication architecture was initially based on methods
+ * used in LoopBackJS' AngularJS service generator. http://loopback.io/
+ */
 angular.module('app.auth', [])
   .config(function($httpProvider, $stateProvider) {
     $stateProvider.state('login', {
