@@ -20,28 +20,20 @@ var minifyCSS = require('gulp-minify-css');
 // Development Dependencies
 var jshint = require('gulp-jshint');
 var jscs = require('gulp-jscs');
-var serve = require('gulp-serve');
+var connect = require('gulp-connect');
+var karma = require('karma').server;
 
-var vendorJSFiles = [
-  'public/vendor/lodash/lodash.js',
-  'public/vendor/angular/angular.js',
-  'public/vendor/angular-ui-router/release/angular-ui-router.js',
-  'public/vendor/angular-bootstrap/ui-bootstrap-tpls.js'
-];
+// Share our configuration between JS files.
+var config = require('./config/build');
 
-var appJSFiles = [
-  'client/modules/**/*.js',
-  'client/index.js'
-];
-
+// Prepare variables for all the files we work on.
+var vendorJSFiles = config.vendor_files.js;
+var templateFiles = [
+      'client/modules/**/views/*.html'
+    ]; // config.app_files.html; // doesn't work????????
+var lessFiles = config.app_files.less;
+var appJSFiles = config.app_files.js;
 var allAppJSFiles = appJSFiles.concat(['public/js/templates.js']);
-
-var templateFiles = ['client/modules/**/views/*.html'];
-
-var cssfiles = [
-  'client/less/styles.less'
-];
-
 var jsWatchFiles = appJSFiles.concat(templateFiles);
 
 gulp.task('lint', function() {
@@ -56,7 +48,7 @@ gulp.task('codestyle', function () {
 });
 
 gulp.task('styles', function() {
-  return gulp.src(cssfiles)
+  return gulp.src(lessFiles)
     .pipe(less())
     .pipe(prefix({ cascade: true }))
     .pipe(rename('styles.css'))
@@ -111,10 +103,8 @@ gulp.task('build-js-dist', ['lint', 'codestyle', 'templates'], function() {
 gulp.task('watch', function() {
   gutil.log(jsWatchFiles);
   gulp.watch(jsWatchFiles, ['build-js']);
-  gulp.watch(cssfiles, ['build-css']);
+  gulp.watch(lessFiles, ['build-css']);
 });
-
-gulp.task('serve', serve('public'));
 
 // Dev build with source maps
 gulp.task('build', ['build-js', 'build-css'], function(){});
@@ -122,5 +112,26 @@ gulp.task('build', ['build-js', 'build-css'], function(){});
 // Prod build w/o source maps
 gulp.task('build-dist', ['build-js-dist', 'build-css'], function(){});
 
+// App server
+gulp.task('serve', function() {
+  connect.server({
+    root: 'public',
+    port: 8888
+  });
+});
 
-gulp.task('default', ['build', 'serve', 'watch']);
+// Unit testing
+gulp.task('unit', function(done) {
+  karma.start({
+    configFile: __dirname + '/config/karma.conf.js',
+    singleRun: true
+  }, done);
+});
+
+gulp.task('autounit', function(done) {
+  karma.start({
+    configFile: __dirname + '/config/karma.conf.js',
+  }, done);
+});
+
+gulp.task('default', ['build', 'serve', 'watch', 'autounit']);
