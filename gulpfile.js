@@ -28,9 +28,7 @@ var config = require('./config/build');
 
 // Prepare variables for all the files we work on.
 var vendorJSFiles = config.vendor_files.js;
-var templateFiles = [
-      'client/modules/**/views/*.html'
-    ]; // config.app_files.html; // doesn't work????????
+var templateFiles = config.app_files.html;
 var lessFiles = config.app_files.less;
 var appJSFiles = config.app_files.js;
 var allAppJSFiles = appJSFiles.concat(['public/js/templates.js']);

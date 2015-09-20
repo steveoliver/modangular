@@ -37,7 +37,7 @@ module.exports = {
     // atpl: [ 'src/app/**/*.tpl.html' ],
     // ctpl: [ 'src/common/**/*.tpl.html' ],
 
-    html: [ 'public/index.html' ],
+    html: [ 'client/modules/**/views/*.html' ],
     less: 'client/less/styles.less'
   },
 
