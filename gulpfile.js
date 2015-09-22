@@ -20,8 +20,8 @@ var minifyCSS = require('gulp-minify-css');
 // Development Dependencies
 var jshint = require('gulp-jshint');
 var jscs = require('gulp-jscs');
-var connect = require('gulp-connect');
 var karma = require('karma').server;
+var browserSync = require('browser-sync').create();
 
 // Share our configuration between JS files.
 var config = require('./config/build');
@@ -57,7 +57,8 @@ gulp.task('build-css', ['styles'], function() {
   return gulp.src('public/css/styles.css')
     .pipe(minifyCSS())
     .pipe(rename('styles.min.css'))
-    .pipe(gulp.dest('public/css'));
+    .pipe(gulp.dest('public/css'))
+    .pipe(browserSync.stream());
 });
 
 gulp.task('templates', function () {
@@ -112,10 +113,12 @@ gulp.task('build-dist', ['build-js-dist', 'build-css'], function(){});
 
 // App server
 gulp.task('serve', function() {
-  connect.server({
-    root: 'public',
-    port: 8888
+  browserSync.init({
+    server: {
+      baseDir: './public/'
+    }
   });
+  gulp.watch(['public/*.html', 'public/js/*.js']).on('change', browserSync.reload);
 });
 
 // Unit testing
