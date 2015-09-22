@@ -7,5 +7,5 @@ angular.module('app.example', [])
     });
   })
   .controller('ExampleDefaultCtrl', function($scope) {
-    $scope.headerText = 'ExampleDefaultCtrl';
+    $scope.headerText = 'Example';
   });

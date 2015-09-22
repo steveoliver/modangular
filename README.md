@@ -6,9 +6,9 @@ and copied over to the `public` directory.
 
 The `public` directory is what will be served. Static files like `index.html` and images belong in the `public` directory.
 
-The gulp build process includes linting, code style checking, unit testing, template compiling, angular annotation, source file concatenation,
-less compilation, css minification, js minification, and js sourcemaps.
+The gulp build process includes linting, code style checking, template compiling, angular annotation, source file concatenation, less compilation, css minification, js minification, and js sourcemaps.
 
+The `gulp unit` and `gulp e2e` tasks run unit and end-to-end tests.
 
 # Setup
 ```
@@ -62,5 +62,15 @@ Runs a dev build when files are changed. (Does not serve app)
 gulp watch
 ```
 
+# Unit Testing
+Runs one pass of unit tests.
+```
+gulp unit
+```
 
+# End-to-end (E2E) Testing
+Runs one pass of end-to-end tests (`webdriver standalone` can be run as a separate gulp task in a separate termianl when running multiple (local) e2e tests).
+```
+gulp webdriver_standalone e2e
+```
 

@@ -15,7 +15,7 @@ describe('ExampleCtrl', function() {
   }));
 
   it('Example default controller header text shows up', function() {
-    assert.equal($scope.headerText, "ExampleDefaultCtrl");
+    assert.equal($scope.headerText, "Example");
   });
 
 });

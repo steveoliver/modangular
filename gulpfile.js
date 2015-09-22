@@ -18,10 +18,14 @@ var prefix = require('gulp-autoprefixer');
 var minifyCSS = require('gulp-minify-css');
 
 // Development Dependencies
+var connect = require('gulp-connect');
 var jshint = require('gulp-jshint');
 var jscs = require('gulp-jscs');
 var karma = require('karma').server;
 var browserSync = require('browser-sync').create();
+var protractor = require('gulp-protractor').protractor;
+var webdriver_standalone = require('gulp-protractor').webdriver_standalone;
+var webdriver_update = require('gulp-protractor').webdriver_update;
 
 // Share our configuration between JS files.
 var config = require('./build-config');
@@ -111,7 +115,11 @@ gulp.task('build', ['build-js', 'build-css'], function(){});
 // Prod build w/o source maps
 gulp.task('build-dist', ['build-js-dist', 'build-css'], function(){});
 
-// App server
+// Protractor dependencies
+gulp.task('webdriver_update', webdriver_update);
+gulp.task('webdriver_standalone', webdriver_standalone);
+
+// App server (continuous)
 gulp.task('serve', function() {
   browserSync.init({
     server: {
@@ -119,6 +127,14 @@ gulp.task('serve', function() {
     }
   });
   gulp.watch(['public/*.html', 'public/js/*.js']).on('change', browserSync.reload);
+});
+
+// End-to-end (one-time) app server
+gulp.task('e2e-serve', function() {
+  return connect.server({
+    root: 'public/',
+    port: 8888
+  });
 });
 
 // Unit testing
@@ -129,10 +145,27 @@ gulp.task('unit', function(done) {
   }, done);
 });
 
+// Continuous unit testing
 gulp.task('autounit', function(done) {
   karma.start({
     configFile: __dirname + '/client/tests/karma.conf.js',
   }, done);
+});
+
+// End-to-end testing (run with or after `webdriver_standalone` task)
+gulp.task('e2e', ['e2e-serve', 'webdriver_update'], function() {
+  var args = ['--baseUrl', 'http://127.0.0.1:3000'];
+  gulp.src(['./client/tests/e2e/*.js'])
+    .pipe(protractor({
+      configFile: './client/tests/protractor.conf.js',
+      args: args
+    }))
+    .on('end', function() {
+      process.exit();
+    })
+    .on('error', function(e) {
+      throw e;
+    });
 });
 
 gulp.task('default', ['build', 'serve', 'watch', 'autounit']);
