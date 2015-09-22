@@ -10,4 +10,4 @@ angular.module('app', [
   'app.main',     // template for this is the main controller is in public/index.html
   'app.templates', // dynamically created via gulp-ng-templates
   'app.util'
-  ]);
+]);

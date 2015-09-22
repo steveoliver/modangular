@@ -129,8 +129,7 @@ angular.module('app.auth', [])
       var key = '$AppAuth$' + name;
       if (value === null) {
         storage.removeItem(key);
-      }
-      else {
+      } else {
         storage.setItem(key, value);
       }
     }
