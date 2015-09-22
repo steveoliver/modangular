@@ -10,27 +10,27 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     // @todo Get these values from require('../config/build') ?
     files: [
-      '../public/vendor/lodash/lodash.js',
-      '../public/vendor/angular/angular.js',
-      '../public/vendor/angular-ui-router/release/angular-ui-router.js',
-      '../public/vendor/angular-bootstrap/ui-bootstrap-tpls.js',
-      '../public/vendor/angular-mocks/angular-mocks.js',
-      '../public/js/templates.js',
-      '../public/js/app.js',
-      '../client/modules/**/*spec.js',
-      './mock/*.js'
+      '../../public/vendor/lodash/lodash.js',
+      '../../public/vendor/angular/angular.js',
+      '../../public/vendor/angular-ui-router/release/angular-ui-router.js',
+      '../../public/vendor/angular-bootstrap/ui-bootstrap-tpls.js',
+      '../../public/vendor/angular-mocks/angular-mocks.js',
+      '../../public/js/templates.js',
+      '../../public/js/app.js',
+      'unit/*.js',
+      'mock/*.js'
     ],
 
     // test result reporter
     reporters: ['progress', 'coverage'],
 
     preprocessors: {
-      '../client/modules/**/*.js': [ 'coverage' ]
+      '../modules/**/*.js': [ 'coverage' ]
     },
 
     coverageReporter: {
       type: 'html',
-      dir: '../test-coverage/'
+      dir: 'coverage-reports/'
     },
 
     // web server port

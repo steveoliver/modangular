@@ -24,7 +24,7 @@ var karma = require('karma').server;
 var browserSync = require('browser-sync').create();
 
 // Share our configuration between JS files.
-var config = require('./config/build');
+var config = require('./build-config');
 
 // Prepare variables for all the files we work on.
 var vendorJSFiles = config.vendor_files.js;
@@ -124,14 +124,14 @@ gulp.task('serve', function() {
 // Unit testing
 gulp.task('unit', function(done) {
   karma.start({
-    configFile: __dirname + '/config/karma.conf.js',
+    configFile: __dirname + '/client/tests/karma.conf.js',
     singleRun: true
   }, done);
 });
 
 gulp.task('autounit', function(done) {
   karma.start({
-    configFile: __dirname + '/config/karma.conf.js',
+    configFile: __dirname + '/client/tests/karma.conf.js',
   }, done);
 });
 
