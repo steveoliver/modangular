@@ -6,7 +6,7 @@ and copied over to the `public` directory.
 
 The `public` directory is what will be served. Static files like `index.html` and images belong in the `public` directory.
 
-The gulp build process includes linting, code style checking, template compiling, angular annotation, source file concatenation,
+The gulp build process includes linting, code style checking, unit testing, template compiling, angular annotation, source file concatenation,
 less compilation, css minification, js minification, and js sourcemaps.
 
 
@@ -19,14 +19,15 @@ bower install
 ```
 
 # Build, Serve, & Watch
-The default gulp action builds the app, then watches for changes. (it doesn't watch for vendor changes)
+The default gulp action builds the app, then watches for changes. (it doesn't watch for vendor changes). BrowserSync serves and auto-reloads
+the app in the browser while tests autorun and report in the console.
 Linting and codestyle checks are done before each new build.
 ```
 gulp
 ```
 
 # Vendor Build
-You can explicitly build vendor dependencies with the `build-vendor` task.
+You can explicitly build vendor dependencies with the `build-vendor` task. (Do this before first `gulp`).
 ```
 gulp build-vendor
 ```
