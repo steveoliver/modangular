@@ -69,7 +69,7 @@ gulp unit
 ```
 
 # End-to-end (E2E) Testing
-Runs one pass of end-to-end tests (`webdriver standalone` can be run as a separate gulp task in a separate termianl when running multiple (local) e2e tests).
+Runs one pass of end-to-end tests (`webdriver standalone` can be run as a separate gulp task in a separate terminal when running multiple (local) e2e tests).
 ```
 gulp webdriver_standalone e2e
 ```
