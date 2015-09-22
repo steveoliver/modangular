@@ -10,6 +10,19 @@ The gulp build process includes linting, code style checking, template compiling
 
 The `gulp unit` and `gulp e2e` tasks run unit and end-to-end tests.
 
+# Dependencies
+Selenium Server, for end-to-end testing.
+If you do not have Protractor installed globally or an existing Selenium Server running:
+```
+npm install -g protractor
+webdriver-manager update --standalone
+webdriver-manager start
+```
+NOTE: Run `webdriver-manager start` in a separate terminal from the gulp tasks.  Also, silence noisy Selenium Server output with this instead of the `webdriver-manager start` command:
+```
+nohup bash -c "webdriver-manager start 2>&1"
+```
+
 # Setup
 ```
 git clone ...
@@ -69,8 +82,8 @@ gulp unit
 ```
 
 # End-to-end (E2E) Testing
-Runs one pass of end-to-end tests (`webdriver standalone` can be run as a separate gulp task in a separate terminal when running multiple (local) e2e tests).
+Runs one pass of end-to-end tests. NOTE: './node_modules/protractor/bin/webdriver-manager start' (or just `webdriver-manager` if protractor is installed globally) must be running.
 ```
-gulp webdriver_standalone e2e
+gulp e2e
 ```
 
