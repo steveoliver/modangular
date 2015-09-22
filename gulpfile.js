@@ -139,7 +139,7 @@ gulp.task('autounit', function(done) {
 
 // End-to-end testing (after `webdriver-manager start`)
 gulp.task('e2e', ['serve'], function() {
-  var args = ['--baseUrl', 'http://127.0.0.1:3000'];
+  var args = ['--baseUrl', 'http://localhost:3000'];
   gulp.src(['./client/tests/e2e/*.js'])
     .pipe(protractor({
       configFile: './client/tests/protractor.conf.js',
