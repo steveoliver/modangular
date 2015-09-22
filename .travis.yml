@@ -11,5 +11,7 @@ before_script:
   - npm install -g bower
   - npm install
   - bower install
+  - gulp build-dist
+  - gulp build
 script:
   - gulp webdriver_standalone test
