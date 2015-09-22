@@ -120,7 +120,7 @@ gulp.task('webdriver_update', webdriver_update);
 gulp.task('webdriver_standalone', webdriver_standalone);
 
 // App server (continuous)
-gulp.task('serve', function() {
+gulp.task('dev-serve', function() {
   browserSync.init({
     server: {
       baseDir: './public/'
@@ -130,7 +130,7 @@ gulp.task('serve', function() {
 });
 
 // End-to-end (one-time) app server
-gulp.task('e2e-serve', function() {
+gulp.task('test-serve', function() {
   return connect.server({
     root: 'public/',
     port: 8888
@@ -153,7 +153,7 @@ gulp.task('autounit', function(done) {
 });
 
 // End-to-end testing (run with or after `webdriver_standalone` task)
-gulp.task('e2e', ['e2e-serve', 'webdriver_update'], function() {
+gulp.task('e2e', ['test-serve', 'webdriver_update'], function() {
   var args = ['--baseUrl', 'http://127.0.0.1:3000'];
   gulp.src(['./client/tests/e2e/*.js'])
     .pipe(protractor({
@@ -168,4 +168,5 @@ gulp.task('e2e', ['e2e-serve', 'webdriver_update'], function() {
     });
 });
 
-gulp.task('default', ['build', 'serve', 'watch', 'autounit']);
+gulp.task('default', ['build', 'dev-serve', 'watch', 'autounit']);
+gulp.task('test', ['unit', 'e2e']);

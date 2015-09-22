@@ -4,7 +4,7 @@
   "description": "A modular AngularJS seed project",
   "main": "src/index.js",
   "scripts": {
-    "test": "make test"
+    "test": "gulp test"
   },
   "author": "Your Name",
   "license": "UNLICENSED",
